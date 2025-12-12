@@ -1,90 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Request Page</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accept My Request</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+    :root{
+      --bg:#ffdce6;
+      --accent:#ff7ab6;
+      --card:#fff5fb;
+      --text:#3a2f3a;
     }
-    img {
-      width: 250px;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      border: 4px solid white;
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:'Quicksand',sans-serif;
+      background:linear-gradient(180deg,var(--bg),#ffe8f0);
+      display:flex;align-items:center;justify-content:center;padding:20px;
+      color:var(--text);
     }
-    .text {
-      font-size: 1.4rem;
-      margin-bottom: 30px;
+
+    .scene{
+      width:100%;max-width:720px;background:var(--card);border-radius:20px;padding:28px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);position:relative;overflow:hidden;
     }
-    .buttons {
-      display: flex;
-      gap: 20px;
+
+    img.portrait{
+      width:220px;height:220px;border-radius:50%;object-fit:cover;border:8px solid white;
+      box-shadow:0 8px 24px rgba(250,120,170,0.18);
     }
-    button {
-      padding: 12px 30px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
+
+    .buttons{display:flex;gap:16px;margin-top:20px}
+    .btn{
+      padding:12px 26px;border-radius:999px;font-weight:700;font-size:1rem;cursor:pointer;
+      border:0;transition:0.2s;
     }
-    .yes {
-      background: #28a745;
-      color: white;
+    .yes{background:linear-gradient(90deg,var(--accent),#ff4fa8);color:white}
+    .no{background:white;color:var(--accent);border:3px solid var(--accent)}
+
+    /* FULLSCREEN MODAL */
+    .modal-bg{
+      position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;
+      align-items:center;justify-content:center;z-index:999;
     }
-    .yes:hover {
-      background: #1e7e34;
+    .modal{
+      background:var(--card);padding:40px;border-radius:20px;max-width:600px;width:90%;text-align:center;
+      box-shadow:0 10px 40px rgba(0,0,0,0.2);
     }
-    .no {
-      background: #dc3545;
-      color: white;
-    }
-    .no:hover {
-      background: #a71d2a;
+    .modal h2{font-size:1.8rem;color:var(--accent)}
+    .modal-buttons{margin-top:30px;display:flex;gap:20px;justify-content:center}
+    .modal-btn{
+      padding:16px 40px;font-size:1.2rem;border-radius:999px;font-weight:700;cursor:pointer;
+      background:linear-gradient(90deg,var(--accent),#ff4fa8);color:white;border:0;
     }
   </style>
 </head>
 <body>
-  <img src="IMAGE_URL_HERE" alt="Profile Picture" />
-  <div class="text">Accept my request or Charlie Kirk will respawn</div>
-  <div class="buttons">
-    <button class="yes">YES</button>
-    <button class="no">NO</button>
+
+  <div class="scene">
+    <img class="portrait" src="IMAGE_URL_HERE" />
+    <h1>Accept my request or Charlie Kirk will respawn</h1>
+    <div class="buttons">
+      <button class="btn yes" id="yesBtn">YES</button>
+      <button class="btn no" id="noBtn">NO</button>
+    </div>
   </div>
+
+  <!-- FULLSCREEN MODAL -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <h2>You should rethink your option 💗</h2>
+      <div class="modal-buttons">
+        <button class="modal-btn" id="modalYes1">YES</button>
+        <button class="modal-btn" id="modalYes2">YES</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    document.querySelector('.yes').addEventListener('click', () => {
+    const redirectUrl = 'https://www.youtube.com/watch?v=S22TkZxSuhw';
+
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const modalBg = document.getElementById('modalBg');
+    const modalYes1 = document.getElementById('modalYes1');
+    const modalYes2 = document.getElementById('modalYes2');
+
+    function win(){
+      alert('Oh shii I actually won W');
+      window.location.href = redirectUrl;
+    }
+
+    yesBtn.addEventListener('click', ()=>{
       alert('OMG did I win!');
+      window.location.href = redirectUrl;
     });
-      document.querySelector('.no').addEventListener('click', () => {
-      alert('Can you rethink your choice ...');
-      setTimeout(() => {
-        const again1 = confirm('YES or YES?');
-        if (again1) {
-          alert('Oh shii I actually won W');
-            window.location.href = 'https://www.youtube.com/watch?v=S22TkZxSuhw';
-        } else {
-          const again2 = confirm('Last chance... YES?');
-          if (again2) {
-            alert('Oh shii I actually won W');
-            window.location.href = 'https://example.com';
-          }
-        }
-      }, 300);
+
+    noBtn.addEventListener('click', ()=>{
+      modalBg.style.display = 'flex';
     });
+
+    modalYes1.addEventListener('click', win);
+    modalYes2.addEventListener('click', win);
   </script>
+
 </body>
 </html>
