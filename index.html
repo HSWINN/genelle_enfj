@@ -31,8 +31,8 @@
       width:220px;
       height:220px;
       border-radius:50%;
-      object-fit:cover;       /* ensures the image fills the circle */
-      object-position:center;  /* centers the image */
+      object-fit:cover;
+      object-position:center;
       border:8px solid white;
       box-shadow:0 8px 24px rgba(250,120,170,0.18);
     }
@@ -45,28 +45,43 @@
     .yes{background:linear-gradient(90deg,var(--accent),#ff4fa8);color:white}
     .no{background:white;color:var(--accent);border:3px solid var(--accent)}
 
-    /* FULLSCREEN MODAL */
-    .modal-bg{
-      position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;
+    /* FULLSCREEN MODALS */
+    .modal-bg, .win-bg{
+      position:fixed;inset:0;display:none;
       align-items:center;justify-content:center;z-index:999;
     }
+
+    .modal-bg{
+      background:rgba(0,0,0,0.7);
+    }
+
     .modal{
       background:var(--card);padding:40px;border-radius:20px;max-width:600px;width:90%;text-align:center;
       box-shadow:0 10px 40px rgba(0,0,0,0.2);
     }
+
     .modal h2{font-size:1.8rem;color:var(--accent)}
     .modal-buttons{margin-top:30px;display:flex;gap:20px;justify-content:center}
     .modal-btn{
       padding:16px 40px;font-size:1.2rem;border-radius:999px;font-weight:700;cursor:pointer;
       background:linear-gradient(90deg,var(--accent),#ff4fa8);color:white;border:0;
     }
+
+    /* WIN FULLSCREEN MESSAGE */
+    .win-bg{
+      background:rgba(255,122,182,0.95);
+      color:white;
+      font-size:2rem;
+      flex-direction:column;
+      font-weight:700;
+      text-align:center;
+    }
   </style>
 </head>
 <body>
 
   <div class="scene">
-    <!-- Replace "your-image.jpg" with the actual file name in your repo -->
-    <img class="portrait" src="https://raw.githubusercontent.com/hswiiin/genelle_enfj/main/your-image.jpg" alt="Profile picture" />
+    <img class="portrait" src="https://raw.githubusercontent.com/hswiiin/genelle_enfj/main/h.jpg" alt="Profile picture" />
     <h1>Accept my request or Charlie Kirk will respawn</h1>
     <div class="buttons">
       <button class="btn yes" id="yesBtn">YES</button>
@@ -74,7 +89,7 @@
     </div>
   </div>
 
-  <!-- FULLSCREEN MODAL -->
+  <!-- FULLSCREEN MODAL FOR NO -->
   <div class="modal-bg" id="modalBg">
     <div class="modal">
       <h2>You should rethink your option 💗</h2>
@@ -85,6 +100,11 @@
     </div>
   </div>
 
+  <!-- FULLSCREEN WIN MESSAGE -->
+  <div class="win-bg" id="winBg">
+    OMG did I win! 🎉
+  </div>
+
   <script>
     const redirectUrl = 'https://www.youtube.com/watch?v=S22TkZxSuhw';
 
@@ -93,15 +113,18 @@
     const modalBg = document.getElementById('modalBg');
     const modalYes1 = document.getElementById('modalYes1');
     const modalYes2 = document.getElementById('modalYes2');
+    const winBg = document.getElementById('winBg');
 
     function win(){
-      alert('Oh shii I actually won W');
-      window.location.href = redirectUrl;
+      modalBg.style.display = 'none';
+      winBg.style.display = 'flex';  // show full-screen win message
+      setTimeout(()=>{
+        window.location.href = redirectUrl;
+      }, 2000); // redirect after 2 seconds
     }
 
     yesBtn.addEventListener('click', ()=>{
-      alert('OMG did I win!');
-      window.location.href = redirectUrl;
+      win();
     });
 
     noBtn.addEventListener('click', ()=>{
