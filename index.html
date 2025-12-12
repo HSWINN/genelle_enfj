@@ -24,11 +24,16 @@
     .scene{
       width:100%;max-width:720px;background:var(--card);border-radius:20px;padding:28px;
       box-shadow:0 10px 30px rgba(0,0,0,0.08);position:relative;overflow:hidden;
-      text-align: center;
+      text-align:center;
     }
 
     img.portrait{
-      width:220px;height:220px;border-radius:50%;object-fit:cover;border:8px solid white;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      object-fit:cover;       /* ensures the image fills the circle */
+      object-position:center;  /* centers the image */
+      border:8px solid white;
       box-shadow:0 8px 24px rgba(250,120,170,0.18);
     }
 
@@ -60,7 +65,8 @@
 <body>
 
   <div class="scene">
-    <img class="portrait" src="<a href="https://ibb.co/1k3cR24"><img src="https://i.ibb.co/NMXRWYG/Whats-App-Image-2025-12-13-at-1-26-58-AM-1.jpg" alt="Whats-App-Image-2025-12-13-at-1-26-58-AM-1" border="0"></a>" alt="Profile picture" />
+    <!-- Replace "your-image.jpg" with the actual file name in your repo -->
+    <img class="portrait" src="https://raw.githubusercontent.com/hswiiin/genelle_enfj/main/your-image.jpg" alt="Profile picture" />
     <h1>Accept my request or Charlie Kirk will respawn</h1>
     <div class="buttons">
       <button class="btn yes" id="yesBtn">YES</button>
